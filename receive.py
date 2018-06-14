@@ -14,7 +14,7 @@ channel.queue_declare(queue='hello')
 
 #  subscribing a callback function to a queue
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    print(" [x] Received {}".format(body))
 
 
 # tell which queue to subscribe to
