@@ -4,6 +4,7 @@ import sys
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
+# durable flag
 channel.queue_declare(queue='task_queue', durable=True)
 
 message = ' '.join(sys.argv[1:]) or "Hello World!"
@@ -13,5 +14,6 @@ channel.basic_publish(exchange='',
                       properties=pika.BasicProperties(
                           delivery_mode=2,  # make message persistent
                       ))
+
 print(" [x] Sent {}".format(message))
 connection.close()

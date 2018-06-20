@@ -12,10 +12,14 @@ def callback(ch, method, properties, body):
     print(" [x] Received {}".format(body))
     time.sleep(10 * body.count(b'.'))
     print(" [x] Done")
+    # ack config
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
+# fair dispatch
 channel.basic_qos(prefetch_count=1)
+
+# remove no_ack=True flag
 channel.basic_consume(callback,
                       queue='task_queue')
 
